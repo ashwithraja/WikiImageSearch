@@ -9,6 +9,7 @@ import com.mahadream.wikiimagesearch.ui.adapter.viewholder.SearchViewHolder
 import com.mahadream.wikiimagesearch.ui.base.BaseViewHolder
 
 class SearchAdapter : RecyclerView.Adapter<BaseViewHolder<Any>>() {
+    private lateinit var mListner: BaseViewHolder.ItemClickListner
     var mData: ArrayList<Page> = ArrayList()
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseViewHolder<Any> {
         return SearchViewHolder(
@@ -24,6 +25,8 @@ class SearchAdapter : RecyclerView.Adapter<BaseViewHolder<Any>>() {
     override fun onBindViewHolder(holder: BaseViewHolder<Any>, position: Int) {
         if (holder is SearchViewHolder) {
             holder.onBindData(mData[position], position)
+            mListner.let { holder.setListener(mListner) }
+
         }
     }
 
@@ -33,10 +36,13 @@ class SearchAdapter : RecyclerView.Adapter<BaseViewHolder<Any>>() {
 
     fun setData(toArrayList: ArrayList<Page>) {
         mData.addAll(toArrayList)
-
     }
 
     fun clear() {
         mData.clear()
+    }
+
+    fun setListner(listner: BaseViewHolder.ItemClickListner) {
+        mListner = listner;
     }
 }

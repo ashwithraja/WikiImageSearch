@@ -1,5 +1,6 @@
 package com.mahadream.wikiimagesearch.ui.search
 
+import android.content.Intent
 import android.os.Bundle
 import android.provider.ContactsContract
 import android.text.TextUtils
@@ -16,9 +17,11 @@ import com.mahadream.wikiimagesearch.R
 import com.mahadream.wikiimagesearch.common.BaseViewModelFactory
 import com.mahadream.wikiimagesearch.common.WikiViewModelProvider
 import com.mahadream.wikiimagesearch.data.common.ErrorModel
+import com.mahadream.wikiimagesearch.data.remote.Page
 import com.mahadream.wikiimagesearch.data.remote.SearchResult
 import com.mahadream.wikiimagesearch.databinding.ActivityMainBinding
 import com.mahadream.wikiimagesearch.ui.adapter.SearchAdapter
+import com.mahadream.wikiimagesearch.ui.base.BaseViewHolder
 import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.*
 import java.util.Arrays.stream
@@ -26,7 +29,7 @@ import java.util.stream.Collector
 import java.util.stream.Collectors
 import kotlin.coroutines.CoroutineContext
 
-class SearchActivity : AppCompatActivity(), CoroutineScope {
+class SearchActivity : AppCompatActivity(), CoroutineScope, BaseViewHolder.ItemClickListner {
     private val mAdapter: SearchAdapter by lazy { SearchAdapter() }
     private lateinit var binding: ActivityMainBinding
     override val coroutineContext: CoroutineContext
@@ -56,6 +59,8 @@ class SearchActivity : AppCompatActivity(), CoroutineScope {
     private fun initUi() {
         binding.rcSearch.layoutManager = GridLayoutManager(this, 2)
         binding.rcSearch.adapter = mAdapter
+        binding.searchView.requestFocus()
+        mAdapter.setListner(this)
     }
 
     override fun onDestroy() {
@@ -122,13 +127,6 @@ class SearchActivity : AppCompatActivity(), CoroutineScope {
 
     }
 
-    fun <T> List<T>.toArrayList(): ArrayList<T> {
-        return ArrayList(this)
-    }
-
-    /**
-     * Simulation of network data
-     */
     private fun dataFromNetwork(query: String): Flow<Either<ErrorModel, SearchResult>> {
         return flow {
             //delay(2000)
@@ -136,10 +134,18 @@ class SearchActivity : AppCompatActivity(), CoroutineScope {
                 mAdapter.clear()
                 mAdapter.notifyDataSetChanged()
             }
-            if(!TextUtils.isEmpty(query)) {
+            if (!TextUtils.isEmpty(query)) {
                 emit(viewModel.getSearchResult(query))
             }
 
+        }
+    }
+
+    override fun <T> onItemClick(data: T) {
+        if (data != null && data is Page) {
+            var intent = Intent(this, SearchDetailsActivity::class.java)
+            intent.putExtra("image", data.thumbnail?.source)
+            startActivity(intent)
         }
     }
 

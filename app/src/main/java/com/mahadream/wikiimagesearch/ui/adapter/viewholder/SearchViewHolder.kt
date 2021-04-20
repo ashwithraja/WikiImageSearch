@@ -9,6 +9,7 @@ import com.mahadream.wikiimagesearch.ui.base.BaseViewHolder
 import com.mahadream.wikiimagesearch.utils.DeviceUtills
 
 class SearchViewHolder(var binding: SearchItemBinding) : BaseViewHolder<Any>(binding) {
+
     override fun <T> onBindData(data: T, position: Int) {
         /*  if (data is Page) {
               Log.d("search", data.title)
@@ -26,6 +27,9 @@ class SearchViewHolder(var binding: SearchItemBinding) : BaseViewHolder<Any>(bin
                     (((DeviceUtills.getDevideWidth() / 2).toLong())),
                     binding.imgView.context
                 )
+            }
+            binding.imgView.setOnClickListener {
+                mClickListener?.onItemClick(data)
             }
         }
     }
