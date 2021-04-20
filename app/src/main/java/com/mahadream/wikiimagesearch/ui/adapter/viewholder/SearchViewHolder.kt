@@ -2,7 +2,6 @@ package com.mahadream.wikiimagesearch.ui.adapter.viewholder
 
 import android.util.Log
 import com.bumptech.glide.Glide
-import com.mahadream.wikiimagesearch.BR
 import com.mahadream.wikiimagesearch.R
 import com.mahadream.wikiimagesearch.data.remote.Page
 import com.mahadream.wikiimagesearch.databinding.SearchItemBinding
@@ -15,7 +14,6 @@ class SearchViewHolder(var binding: SearchItemBinding) : BaseViewHolder<Any>(bin
               Log.d("search", data.title)
           }*/
         if (data is Page) {
-            binding.setVariable(BR.page,data)
             binding.executePendingBindings()
             data.thumbnail?.let { Log.i("Image", it?.source) }
             Glide.with(binding.imgView.context).load(data.thumbnail?.source)

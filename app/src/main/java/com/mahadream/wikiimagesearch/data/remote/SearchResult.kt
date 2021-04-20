@@ -1,8 +1,9 @@
 package com.mahadream.wikiimagesearch.data.remote
 
+import androidx.room.Entity
 import com.google.gson.annotations.SerializedName
 import com.mahadream.wikiimagesearch.data.common.BaseApiResponseModel
-
+@Entity(tableName = "search_table")
 class SearchResult  {
 
     val batchcomplete: String = ""
