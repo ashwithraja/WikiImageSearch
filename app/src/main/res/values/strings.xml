@@ -1,0 +1,22 @@
+<resources>
+    <string name="app_name">WikiImageSearch</string>
+    <string name="action_settings">Settings</string>
+    <!-- Strings used for fragments for navigation -->
+    <string name="first_fragment_label">First Fragment</string>
+    <string name="second_fragment_label">Second Fragment</string>
+    <string name="next">Next</string>
+    <string name="previous">Previous</string>
+
+    <string name="hello_first_fragment">Hello first fragment</string>
+    <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
+    <string name="no_result">No Result</string>
+    <string name="app_quit_title">Leaving so soon?</string>
+    <string name="app_quit_descriopn">Do you want to quite the app?</string>
+    <string name="ok">OK</string>
+    <string name="no">NO</string>
+    <string name="no_network_desc">Network error, please try again later</string>
+    <string name="no_network_title">No Network</string>
+    <string name="api_error">Something went wrong</string>
+    <string name="api_error_description">Error reaching to server</string>
+    <string name="retry">RETRY</string>
+</resources>
